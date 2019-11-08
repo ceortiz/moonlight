@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Register</title>
+	<link rel="stylesheet" href="{% static 'book/project.css'%}">
+	<script src="{% static 'book/registration2.js' %}"></script>
+	<!--<link rel="stylesheet" href="{% static 'book/css/bootstrap.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'book/css/bootstrap-responsive.css' %}"/>
+	<link rel="stylesheet" href="{% static 'book/css/bootstrap-responsive.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'book/css/custom.css' %}"/>-->
+</head>
+<body>
+
+	<form id="regForm" action="{% url 'book:register' %}" method="POST">
+		{% csrf_token %}
+		<h3>Register</h3>
+
+		<!--- one tab for each step in the form-->
+		<div class="tab" id="tab0" class->
+			<h4 style="text-align: center;">User Details</h4>
+			<div class="form-group">
+				<label for="">Email address</label>
+				<input type="email" class="form-control" name="email" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<label for="">Password</label>
+				<input type="password" class="form-control" name="password" placeholder="Password">
+			</div>
+			<div class="form-row">
+				<div class="col-md-4">
+					Last name
+					<input type="text" class="form-control" name="last_name" placeholder="Last name">
+				</div>
+				<div class="col-md-4">
+					First name
+					<input type="text" class="form-control" name="first_name" placeholder="First name">
+				</div>
+				<div class="col-md-4">
+					Middle name
+					<input type="text" class="form-control" name="middle_name" placeholder="Middle name">
+				</div>
+			</div>
+			<div class="form-row">
+				<div>
+					<label for="genderinput">Gender</label>
+					<select class="form-control form-control-lg" id="genderinput">
+						<option>Choose..</option>
+						<option>Male</option>
+						<option>Female</option>
+					</select>
+				</div>
+				<div class="col">
+					<label for="birthdayinput">Birthday</label>
+					<input type="date" class="form-control" name="birthday" min="1940-01-02" id="birthdayinput">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="addressinput">Address</label>
+				<input type="text" name="address" id="addressinput">
+			</div>
+			<div class="form-group">
+				<label for="phonenumberinput">Mobile number</label>
+				<div class="input-group mb-2">
+					<div class="input-group-prepend">
+						<div class="input-group-text">+63</div>
+					</div>
+				</div>
+				<input type="text" class="form-control" initial='+63' name="phonenumberinput">
+			</div>
+			<div class="form-group">
+				<label for="professioninput">Profession</label>
+				<select class="form-control form-control-lg" id="professioninput">
+					<option>Choose..</option>
+					<option value="alliedmed">Allied Medical Professional</option>
+					<option value="dentist">Dentist</option>
+					<option value="dietician">Dietician</option>
+					<option value="doctor">Doctor</option>
+					<option value="coder">Medical Coder</option>
+					<option value="medtech">Medical Technologist</option>
+					<option value="nurse">Nurse</option>
+					<option value="pharmacist">Pharmacist</option>
+					<option value="recruiter">Recruiter</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="tab" id="tab1">
+			<h4 style="text-align: center;">Professional Details</h4>
+			<div class="form-group">
+				<label for="postspreferenceinput">Post Preference</label>
+				<select class="form-control form-control-lg" id="postspreferenceinput">
+					<option>Choose..</option>
+					<option>Regular Posts</option>
+					<option>Reliever Posts</option>
+					<option>Regular and Reliever Posts</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="licensenumberinput">License number</label>
+				<input type="number" name="license_number" id="licensenumberinput" placeholder="0123456">
+			</div>
+			<div class="form-group">
+				<label for="cv_input">Curriculum vitae</label>
+				<input type="file" name="cv" id="cv_input">
+			</div>
+			<div class="form-group">
+				<label for="prc_idinput">PRC ID</label>
+				<input type="file" name="prc_id" id="prc_idinput">
+			</div>
+			<button type="submit" class="btn btn-primary mb-2" onclick="part2()">Register</button>
+			<br>
+		</div>
+
+		<div class="tab" id="tab2">
+			<div class="form-group">
+				<label for="agency">Agency</label>
+				<input type="text" name="agency" id="agency">
+			</div>
+		</div>
+
+		<div class="tab" id="tab3">
+			<h4 style="text-align: center;">Specialty</h4>
+			<div class="form-group" id="doctorsection">
+				<label for="specialtyinput">Specialty</label>
+				<select class="form-control form-control-lg" id="specialtyinput">
+					<option>Choose..</option>
+					<option value="anesthesiology">Anaesthesiology</option>
+					<option value="derma">Dermatology</option>
+					<option value="er">Emergency Medicine</option>
+					<option value="ent">ENT</option>
+					<option value="fammed">Family/Community Medicine</option>
+					<option value="im">Internal Medicine</option>
+					<option value="ob">Obstetrics Gynecology</option>
+					<option value="ophtha">Ophthalmology</option>
+					<option value="ortho">Orthopedics</option>
+					<option value="patho">Pathology</option>
+					<option value="pedia">Pediatrics</option>
+					<option value="pcp">Primary Care</option>
+					<option value="psych">Psychiatry</option>
+					<option value="radio">Radiology</option>
+					<option value="rehab">Rehabilitation Medicine</option>
+					<option value="surg">Surgery</option>
+				</select>
+			</div>
+		</div>
+
+		<!--- hd or oh experience-->
+		<div class="tab" id="tab4">
+			<h4 style="text-align: center;">Qualifications</h4>
+			<label>Hemodialysis experience</label>
+				<div class="form-check">
+					<input type="radio" name="hd_yes" value="yes">
+					<label>Yes</label>
+				</div>
+				<div class="form-check">
+					<input type="radio" name="hd_no" value="no">
+					<label>No</label>
+				</div>
+				<label>Occupational Health qualification</label>
+				<div class="form-check">
+					<input type="radio" name="oh_yes" value="yes">
+					<label>Yes</label>
+				</div>
+				<div class="form-check">
+					<input type="radio" name="oh_no" value="no">
+					<label>No</label>
+				</div>
+				<button type="submit" class="btn btn-primary mb-2" onclick="part3()">Register</button>
+		</div>
+
+		<div class="tab" id="tab5">
+			<h4 style="text-align: center;">Qualifications</h4>
+			<label>Diplomate status</label>
+				<div class="form-check">
+					<input type="radio" name="diplomate_yes" value="yes">
+					<label>Yes</label>
+				</div>
+				<div class="form-check">
+					<input type="radio" name="diplomate_no" value="no">
+					<label>No</label>
+				</div>
+				<label>Consultant status</label>
+				<div class="form-check">
+					<input type="radio" name="consultant_yes" value="yes">
+					<label>Yes</label>
+				</div>
+				<div class="form-check">
+					<input type="radio" name="consultant_no" value="no">
+					<label>No</label>
+				</div>
+				<button type="submit" class="btn btn-primary mb-2" onclick="part4()">Register</button>
+		</div>
+
+		<div style="overflow: auto;">
+			<div style="float:right;">
+				<button class="btn btn-primary mb-2" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+				<button class="btn btn-primary mb-2" id="nextBtn" onclick="nextPrev(1)">Next</button>
+			</div>
+		</div>
+	</form>
+<!--<script src="{% static 'book/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'book/js/bootstrap.js' %}"></script>-->
+</body>
+</html>

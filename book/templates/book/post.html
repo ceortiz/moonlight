@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Add a Post</title>
+	<!--<script src="{% static 'book/post.js' %}"></script>-->
+	<script type="text/javascript">
+		var form_count = 0;
+
+		//document.getElementById("add-another").onclick = 
+
+		function add_field() {
+			form_count = form_count + 1;
+
+			var input = document.createElement("input");
+			input.setAttribute('type', 'text');
+			input.setAttribute('name', 'extra_duration_' + form_count);
+			input.label = "Duration";
+			var br = document.createElement("br");
+			document.getElementById("forms").append(input);
+			document.getElementById("forms").append(br);
+ 
+			document.getElementById("id_extra_duration_count").value = form_count;
+		};
+	</script>
+</head>
+<body>
+	<form action="{% url 'post' %}" method="POST">
+		{% csrf_token %}
+	<div id="forms">
+		{{ form.as_p }}
+	</div>
+	<button id="add-another" onclick="add_field()">Add another date</button>
+	<input type="submit" name="">
+</form>
+</body>
+</html>

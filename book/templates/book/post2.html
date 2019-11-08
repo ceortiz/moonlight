@@ -1,0 +1,481 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="main.css">
+<script>
+	/*function delIt(eleId)
+	{
+		d = document;
+		console.log(d);
+		// 'ele' is null
+		var ele = d.getElementById(eleId);
+		//console.log(ele);
+		var parentEle = d.getElementById('newlink');
+		console.log('parentEle');
+		parentEle.removeChild(ele);
+		counter--;
+		d.getElementById('number_of_posts').value = counter;
+
+	}
+		/*$(document).on('click', '.remove', function(event) {
+		console.log('clicked');
+		var removal_id = $(this).parent().attr('id');
+		var removal = document.getElementById(removal_id);
+		var parentEle = document.getElementById('newlink');
+		parentEle.removeChild(removal);
+		counter--;
+		d.getElementById('number_of_posts').value = counter;
+		event.stopPropagation();
+		event.preventDefault();
+
+	});
+/*
+This script is identical to the above JavaScript function.
+*/
+	//var counter = 1;
+
+	// function to delete the newly added set of elements
+	
+	// copy post data
+	/*function copy_post()
+	{
+		//get the value
+		d = document;
+		counter++;
+		var div1 = d.createElement('div');
+		div1.id = counter;
+		// link to delete extended form elements
+		var post_number = '<h4>Post '+ counter +'</h4>';
+		var delLink = '<div style="text-align:right;margin-right:65px"><a href="javascript:delIt('+ counter +')">Remove</a></div>';
+		div1.innerHTML = post_number + document.getElementById('newlinktpl').innerHTML + delLink;
+		d.getElementById('newlink').appendChild(div1);
+		d.getElementById('number_of_posts').value = counter;
+		
+
+		//GET THE VALUES OF THE DIV CLICKED AND ASSIGN TO NEW DIV
+		var start_times = d.getElementsByName('start_time_new');
+		for(var i=0, n=start_times.length;i<n;i++) {
+   			start_times[i].value = d.getElementById('start_time').value;
+ 		}
+
+ 		var end_times = d.getElementsByName('end_time_new');
+		for(var i=0, n=end_times.length;i<n;i++) {
+   			end_times[i].value = d.getElementById('end_time').value;
+ 		}
+
+ 		var new_hours = d.getElementsByName('hours_new');
+		for(var i=0, n=new_hours.length;i<n;i++) {
+   			new_hours[i].value = d.getElementById('hours').value;
+ 		}
+
+ 		var salaries = d.getElementsByName('salary_new');
+		for(var i=0, n=salaries.length;i<n;i++) {
+   			salaries[i].value = d.getElementById('salary').value;
+ 		}
+
+ 		var males = d.getElementsByName('male_new');
+		for(var i=0, n=males.length;i<n;i++) {
+   			males[i].value = d.getElementById('male').value;
+ 		}
+
+ 		var females = d.getElementsByName('female_new');
+		for(var i=0, n=females.length;i<n;i++) {
+   			females[i].value = d.getElementById('female').value;
+ 		}
+
+ 		var options = d.getElementsByName('option_new');
+		for(var i=0, n=options.length;i<n;i++) {
+   			options[i].value = d.getElementById('option').value;
+ 		}*/
+	//}
+
+
+</script>
+
+<div id="big_wrapper">
+	<form method="post" action="{% url 'create_post' %}" data-posts-url="{% url 'ajax_load_posts' %}">
+		{% csrf_token %}
+
+		<h3>Create a Post</h3>
+		<br>
+		<label for="what">What: </label>
+		<input type="text" name="what" id="what" autocomplete="on">
+		<br>
+		<label for="where">Where: </label>
+		<input type="text" name="where" id="where" autocomplete="on">
+		<br>
+		<div class="container">                                       
+	  	<div class="dropdown">
+	  	<label>Profession:</label>
+	    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose..
+	    <span class="caret"></span></button>
+	    <ul class="dropdown-menu">
+	      <li class="profession"><a href="#">Allied Medical Professional</a></li>
+	      <li class="profession"><a tabindex="-1" href="#">Dentist</a></li>
+	      <li class="profession"><a tabindex="-1" href="#">Dietitian</a></li>
+	      <li class="dropdown-submenu" data-toggle="dropdown">
+	        <a class="test" tabindex="-1" href="#">General Physician<span class="caret"></span></a>
+	        <ul class="dropdown-menu">
+	          <li class="profession">
+	            <a href="#">GP w/out HD/OH qualification</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">GP w/ hemodialysis experience</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">GP w/ occupational health qualification</a>
+	          </li>
+	        </ul>
+	      </li>
+	      <li class="profession"><a tabindex="-1" href="#">Medical Coder</a></li>
+	      <li class="dropdown-submenu">
+	        <a class="test" tabindex="-1" href="#">Physician - Specialist<span class="caret"></span></a>
+	        <ul class="dropdown-menu">
+	          <li class="profession">
+	            <a tabindex="-1" href="#">Anesthesiology Junior Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">Anesthesiology Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">Dermatology Junior Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">Dermatology Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">Emergency Medicine Junior Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">Emergency Medicine Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">ENT Junior Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">ENT Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">Family/Community Medicine Junior Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">Family/Community Medicine Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a class="test" href="#">Internal Medicine Junior Consultant</a>
+	          </li>
+	          <li class="profession">
+	            <a tabindex="-1" href="#">Internal Medicine Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Obstetrics-Gynecology Junior Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Obstetrics-Gynecology Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Ophthalmology Junior Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Ophthalmology Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Orthopedics Junior Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Orthopedics Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Pathology Junior Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Pathology Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Pediatrics Junior Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Pediatrics Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Psychiatry Junior Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Psychiatry Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Radiology Junior Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Radiology Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Rehabilitation Medicine Junior Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Rehabilitation Medicine Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Surgery Junior Consultant</a>
+	          </li>
+	          <li class="dropdown-submenu">
+	            <a tabindex="-1" href="#">Surgery Consultant</a>
+	          </li>
+	        </ul>
+	      </li>
+	      <li><a tabindex="-1" href="#">Medical Technologist</a></li>
+	      <li class="dropdown-submenu"><a class="test" tabindex="-1" href="#">Nurse<span class="caret"></span></a>
+	      	<ul class="dropdown-menu">
+	      		<li class="profession"><a tabindex="-1" href="#">RN w/out HD/OH qualification</a></li>
+	      		<li class="profession"><a tabindex="-1" href="#">RN w/ hemodialysis experience</a></li>
+	      		<li class="profession"><a tabindex="-1" href="#">RN w/ occupational health qualification</a></li>
+	      	</ul>
+	      </li>
+	      <li><a tabindex="-1" href="#">Pharmacist</a></li>
+	    </ul>
+	  	</div>
+	  	<input id="profession_text" type="text" name="" placeholder="Search" size="30" style="height:35px;text-align:center">
+		</div>
+		<br>
+		<label for="setting">Setting: </label>
+		<select>
+			<option>Choose..</option>
+			<option>Clinic</option>
+			<option>Hospital</option>
+		</select>
+		<br>
+		<label for="incentives">Incentives/Benefits: </label>
+		<input type="textarea" name="incentives" id="incentives" autocomplete="on">
+		<br>
+		<label>Salary given:</label>
+		<input type="text" name="salary_date" id="salary_date">
+		<br>
+		<label>Incentives given:</label>
+		<input type="text" name="incentives_date" id="incentives_date">
+		<br>
+		<label for="requirements">Requirements:</label>
+		<input type="textarea" name="requirements" id="requirements" autocomplete="on">
+		<br>
+		<label for="patients">Expected no. of patients</label>
+		<input type="number" name="patients" id="patients">
+		<br>
+		<label for="person_to_look">Person to look for: </label>
+		<input type="text" name="" id="person_to_look">
+		<br>
+		<label for="others">Others: </label>
+		<input type="textarea" name="others" id="others">
+
+			<ol id="newlink">
+				<h4>When</h4>
+						<li></li>
+							<div id="post_0">
+								<table border=1>
+									<br>
+									<tr>
+										<td> Start date: </td>
+										<td> <input type="date" name="linkurl[]"> </td> 
+										<td> End date: </td> 
+										<td> <input type="date" name="linkurl[]">
+									</tr>
+									<tr>
+										<td> Start time: </td>
+										<td>  <input type="time" name="linkdesc[]" id="start_time"> </td> 
+										<td> End time: </td> 
+										<td> <input type="time" name="linkdesc[]" id="end_time"> </td>
+									</tr>
+									<tr>
+										<td> Total hours: </td>
+										<td> <input type="number" placeholder="hours paid" id="hours"> </td>
+									</tr>
+									<tr>
+										<td> Net salary </td>
+										<td> <input type="number" id="salary"> </td>
+									</tr>
+									<tr class="math">
+										<td> Male <input type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g, '')" class="sex male" id="male"> </td>
+										<td>
+											<select class="choice" name="determinant" id="determinant">
+												<option value="AND">AND</option>
+												<option value="OR">OR</option>
+											</select>
+										</td>
+										<td> Female <input type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g, '')" class="sex female" id="female"> </td>
+										<td><p class="sex total_posts" value="0" id="total_posts" style="font-size:35px" name="total_posts">0</p></td>
+									</tr>
+								</table>
+								<button type="button" class="addnew">Create a similar post</button>
+
+							</div>
+			</ol>
+				<p>
+					<br>
+					<input type="hidden" name="number_of_posts" id="number_of_posts" value="1">
+					<input type="hidden" name="post_type" value="different_professionals">
+					<input type="submit" name="submit1" value="Create Post">
+					<input type="reset" name="reset1">
+				</p>
+	</form>
+
+<script>
+	$(document).ready(function(){
+	  $('.dropdown-submenu a.test').on("click", function(e){
+	    var dropdowns = $('.dropdown-submenu .dropdown-menu');
+	    var i;
+	    for (i = 0; i < dropdowns.length; i++) {
+	      var openDropdown = dropdowns[i];
+	      if (openDropdown.style.display = "block")
+	        openDropdown.style.display = "none";
+	    }
+	    $(this).next('ul').toggle("show");
+	    e.stopPropagation();
+	    e.preventDefault();
+	  });
+
+	});
+	$('.profession > a').on("click", function(e){
+	    var profession = $(this).html();
+	    $('#profession_text').val(profession);
+	  });
+</script>
+
+<script>
+	counter = 1;
+	//when copy post is clicked, get the id of the parent element
+	$(document).on('click', '.addnew', function(event) {
+		console.log('clicked');
+		var original_id = $(this).parent().attr('id');
+		// clone the div
+		var original_div = document.getElementById(original_id);
+		var starting_clone = original_div.cloneNode(true);
+		counter++;
+		var originalSelect = $(original_div).find('select');
+		$(starting_clone).find('select').each(function(index, item) {
+     		$(item).val( originalSelect.eq(index).val() );
+		});
+		//replace id of clone with a new by getting the id of the new clone and splice it
+		starting_clone.id = original_id.slice(0,5) + counter;
+		starting_clone.setAttribute("class", "post");
+		//var post_text = "<h4 id=post_number_"+ counter +">Post " + counter +"</h4>"
+		var post_text_ele = document.createElement('li');
+		post_text_ele.id = "post_number_"+ counter;
+
+		//post_text_ele.innerHTML = "Post " + counter;
+
+
+		var delLink = '<div value="'+ counter +'" class="remove" id="remove_'+ counter +'"style="text-align:right;margin-right:65px"><a>Remove</a></div>';
+		var delete_button = document.createElement('a');
+		delete_button.setAttribute("href", "#");
+		delete_button.setAttribute("class", "remove");
+		delete_button.value = counter;
+		delete_button.id = "remove_"+ counter;
+		delete_button.style = "text-align:right;margin-right:65px";
+		delete_button.innerHTML = "Remove";
+
+		document.getElementById('newlink').appendChild(post_text_ele);
+		document.getElementById('newlink').appendChild(starting_clone);
+		document.getElementById('newlink').appendChild(delete_button);
+		document.getElementById('number_of_posts').value = counter;
+		//document.getElementById('show_value').innerHTML = counter;
+	});
+
+	$(document).on('click', 'a.remove', function(event) {
+		console.log('clicked');
+		//get the value of the remove div
+
+		var div_value = $(this).val();
+		//get the parent element
+		var parentEle = document.getElementById('newlink');
+		//get the elements with that id and remove
+		var child_text = document.getElementById('post_number_'+ div_value,);
+		var child_div = document.getElementById('post_'+ div_value);
+		var child_remove = document.getElementById('remove_'+ div_value);
+		//remove elements
+		parentEle.removeChild(child_text);
+		parentEle.removeChild(child_div);
+		parentEle.removeChild(child_remove);
+		
+		//decrease counter by 1
+		document.getElementById('number_of_posts').value = counter--;
+		//document.getElementById('show_value').innerHTML = counter;
+		//update the number of posts
+
+	});
+
+	//when "OR" is chosen, USE CHANGE EVENT
+	$(document).on('change', '.choice', function(event) {
+		console.log('clicked');
+		//SOMETHING WRONG WITH THIS
+		var determinant = $(this).val();
+		console.log(determinant);
+		if (determinant == "OR") {
+			$(this).closest("td").next().find("input.female").attr("disabled",true);
+			male_val = $(this).closest("td").prev().find("input.male").val();
+			console.log(male_val);
+		// get the male value
+			if (male_val == "")
+				male_val = 0;
+			var result = parseInt(male_val);
+
+			if (!isNaN(result)){
+				$(this).closest("td").next().find("input.female").val(result);
+				$(this).closest("td").next().next().find("p.total_posts").html(result);
+			}
+		} else {
+			$(this).closest("td").next().find("input.female").attr("disabled",false);
+			male_val = $(this).closest("td").prev().find("input.male").val();
+			female_val = $(this).closest("td").next().find("input.female").val();
+			if (male_val == "")
+				male_val = 0;
+			if (female_val == "")
+				female_val = 0;
+			var result = parseInt(male_val) + parseInt(female_val);
+			//address potential problem if nothing is type on a field
+			if (!isNaN(result)){
+				$(this).closest("td").next().next().find("p.total_posts").html(result);
+			}
+
+		}
+	});
+	//include if determinant is or
+	$(document).on('keyup', '.math', function(event){
+		console.log('clicked');
+		var male_value = $("input.male", this).val();
+		var female_value = $("input.female", this).val();
+		var determinant = $("#determinant :selected", this).val();
+		console.log(determinant);
+		//if male or female value is "" 
+		
+		//IF DETERMINANT IS "OR"
+		if (determinant == "OR") {
+			$("input.female", this).attr("disabled",true);
+			if (male_value == "")
+				male_value = 0;
+			var result = parseInt(male_value);
+
+			if (!isNaN(result)){
+				$("input.female", this).val(result);
+				$("p.total_posts", this).html(result);
+			}
+		} else {
+		//IF DETERMINANT IS "AND"
+			$("input.female", this).attr("disabled",false);
+			if (male_value == "")
+				male_value = 0;
+			if (female_value == "")
+				female_value = 0;
+			var result = parseInt(male_value) + parseInt(female_value);
+			//address potential problem if nothing is type on a field
+			if (!isNaN(result)){
+				$("p.total_posts", this).html(result);
+			}
+		}
+	});
+	//on keyup after OR has been selected from AND
+</script>
+
+
+
+

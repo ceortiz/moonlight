@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Register</title>
+	<link rel="stylesheet" href="{% static 'book/project.css'%}">
+	<script src="{% static 'book/registration3.js' %}"></script>
+	<!--<link rel="stylesheet" href="{% static 'book/css/bootstrap.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'book/css/bootstrap-responsive.css' %}"/>
+	<link rel="stylesheet" href="{% static 'book/css/bootstrap-responsive.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'book/css/custom.css' %}"/>-->
+</head>
+<body>
+	{{ form.non_field.errors }}
+	{% for error in form.non_field.errors %}
+		<li>{{ error }}</li>
+	{% endfor %}
+	{% if form.errors %}
+		<ul>
+			{% for key, value in form.errors.items %}
+				<li>{{ key|escape }} : {{value|escape}}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	{% for field in form %}
+		<li>{{ field.errors }}</li>
+	{% endfor %}
+<form id="Form1" action="{% url 'registration' %}" method="POST">
+	{% csrf_token %}
+	{{ form.non_field.errors }}
+	{% for error in form.non_field.errors %}
+		<li>{{ error }}</li>
+	{% endfor %}
+	{% if form.errors %}
+		<ul>
+			{% for key, value in form.errors.items %}
+				<li>{{ key|escape }} : {{value|escape}}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	{% for field in form %}
+		<li>{{ field.errors }}</li>
+	{% endfor %}
+</form>
+
+<form id="Form2">
+	<h3 style="text-align:center">Register</h3>
+
+	<div class="tab" id="tab0">
+		{{ userform.as_p }}
+	</div>
+
+	<div class="tab" id="tab1">
+		{{ professionalsform.as_p }}
+	</div>
+
+	<div class="tab" id="tab2">
+		{{ recruitersform.as_p }}
+	</div>
+
+	<div class="tab" id="tab3">
+		{{ specialtiesform.as_p }}
+	</div>
+
+	<div class="tab" id="tab4">
+		{{ hdform.as_p }}
+		{{ ohform.as_p }}
+	</div>
+
+	<div class="tab" id="tab5">
+		{{ specialistform.as_p }}
+	</div>
+
+	<div style="overflow: auto;">
+		<div style="float:right;">
+			<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+			<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+		</div>
+	</div>
+</form>
+<!--<script src="{% static 'book/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'book/js/bootstrap.js' %}"></script>-->
+</body>
+</html>

@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+<html>
+<head>
+	{% load staticfiles %}	
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Register</title>
+	<style type="text/css">
+			#phase2, #doctorsection, #GPsection, #specialistsection {
+			display: none;
+		}
+	</style>
+	<script type="text/javascript">
+		var  email, password, middle_name, gender, birthday, address, phone_number, profession, postspreferenceinput, licensenumberinput, cv_input, prc_idinput, recruiter, oh_yes, oh_no, hd_yes, hd_no, specialty, diplomate_yes, diplomate_no, consultant_yes, consultant_no
+
+			function part1() {
+				document.getElementById('phase1').style.display = "none";
+				// if doctor, display specialty choices with part 2 form
+				if (document.getElementById('professioninput').value == "doctor") {
+					document.getElementById('doctorsection').style.display = "block";
+					document.getElementById('phase2').style.display = "block";
+				// else only part 2 form and end
+				} else {
+					document.getElementById('phase2').style.display = "block";
+					//onsubmit return true
+				}
+			}
+
+			function part2() {
+				// if not doctor
+				if (document.getElementById('professioninput').value != "doctor") {
+					document.getElementById('phase2').style.display = "block";
+					// if all fields are filled out, submit the whole form
+
+					// if pcp show OH and HD qualifications
+				} else if (document.getElementById('specialtyinput').value == "pcp"){
+					document.getElementById('phase2').style.display = "none";
+					document.getElementById('doctorsection').style.display = "none";
+					document.getElementById('GPsection').style.display = "block";
+					// if all fields are filled out, submit the whole form
+
+					// else if specialist, show consultant and diplo status
+				} else {
+					document.getElementById('phase2').style.display = "none";
+					document.getElementById('doctorsection').style.display = "none";
+					document.getElementById('specialistsection').style.display = "block";
+					// if all fields are filled out, submit the whole form
+					
+				}
+			}
+
+			function submitForm() {
+				document.getElementById('multiphase').method = "post";
+				document.getElementById('multiphase').action = "#";
+				document.getElementById('multiphase').submit();
+			}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div>
+			<h2>Register</h2>
+		</div>
+{% csrf_token %}
+	<form id="multiphase" onsubmit="return false">
+	{% csrf_token %}
+	<div class="container" id="phase1">
+		<div class="form-group">
+			<label for="">Email address</label>
+			<input type="email" class="form-control" name="email" placeholder="Email">
+		</div>
+		<div class="form-group">
+			<label for="">Password</label>
+			<input type="password" class="form-control" name="password" placeholder="Password">
+		</div>
+			<div class="form-row">
+				<div class="col">
+					Last name
+					<input type="text" class="form-control" name="last_name" placeholder="Last name">
+				</div>
+				<div class="col">
+					First name
+					<input type="text" class="form-control" name="first_name" placeholder="First name">
+				</div>
+				<div class="col">
+					Middle name
+					<input type="text" class="form-control" name="middle_name" placeholder="Middle name">
+				</div>
+			</div>
+			<div class="form-row">
+				<div>
+					<label for="genderinput">Gender</label>
+					<select class="form-control form-control-lg" id="genderinput">
+						<option>Choose..</option>
+						<option>Male</option>
+						<option>Female</option>
+					</select>
+				</div>
+				<div class="col">
+					<label for="birthdayinput">Birthday</label>
+					<input type="date" class="form-control" name="birthday" min="1940-01-02" id="birthdayinput">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="addressinput">Address</label>
+				<input type="text" name="address" id="addressinput">
+			</div>
+			<div class="form-group">
+				<label for="phonenumberinput">Mobile number</label>
+				<div class="input-group mb-2">
+					<div class="input-group-prepend">
+						<div class="input-group-text">+63</div>
+					</div>
+				</div>
+				<input type="text" class="form-control" name="phonenumberinput">
+			</div>
+			<label>Are you a healthcare provider or a recruiter?</label>
+			<div class="form-check">
+				<input type="radio" name="healthprovider" value="healthprovider">
+				<label>Healthcare provider</label>
+			</div>
+			<div class="form-check">
+				<input type="radio" name="recruiter" value="recruiter">
+				<label>Recruiter</label>
+			</div>
+			<div class="col">
+				<label for="agencyinput">Agency:</label>
+				<input type="text" name="" id="agencyinput" placeholder="Agency/Clinic/Hospital">
+			</div>
+			<div class="form-group">
+				<label for="professioninput">Profession</label>
+				<select class="form-control form-control-lg" id="professioninput">
+					<option>Choose..</option>
+					<option value="alliedmed">Allied Medical Professional</option>
+					<option value="dentist">Dentist</option>
+					<option value="dietician">Dietician</option>
+					<option value="doctor">Doctor</option>
+					<option value="coder">Medical Coder</option>
+					<option value="medtech">Medical Technologist</option>
+					<option value="nurse">Nurse</option>
+					<option value="pharmacist">Pharmacist</option>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary mb-2" onclick="part1()">Continue</button>
+	</div>
+
+		<div id="phase2">
+			<div class="form-group">
+				<label for="postspreferenceinput">Post Preference</label>
+				<select class="form-control form-control-lg" id="postspreferenceinput">
+					<option>Choose..</option>
+					<option>Regular Posts</option>
+					<option>Reliever Posts</option>
+					<option>Regular and Reliever Posts</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="licensenumberinput">License number</label>
+				<input type="number" name="license_number" id="licensenumberinput" placeholder="0123456">
+			</div>
+			<div class="form-group">
+				<label for="cv_input">Curriculum vitae</label>
+				<input type="file" name="cv" id="cv_input">
+			</div>
+			<div class="form-group">
+				<label for="prc_idinput">PRC ID</label>
+				<input type="file" name="prc_id" id="prc_idinput">
+			</div>
+			<button type="submit" class="btn btn-primary mb-2" onclick="part2()">Register</button>
+			<br>
+		</div>
+
+			<div class="form-group" id="doctorsection">
+				<label for="specialtyinput">Specialty</label>
+				<select class="form-control form-control-lg" id="specialtyinput">
+					<option>Choose..</option>
+					<option>Anaesthesiology</option>
+					<option>Dermatology</option>
+					<option>Emergency Medicine</option>
+					<option>ENT</option>
+					<option>Family/Community Medicine</option>
+					<option>Internal Medicine</option>
+					<option>Obstetrics Gynecology</option>
+					<option>Ophthalmology</option>
+					<option>Orthopedics</option>
+					<option>Pathology</option>
+					<option>Pediatrics</option>
+					<option value="pcp">Primary Care</option>
+					<option>Psychiatry</option>
+					<option>Radiology</option>
+					<option>Rehabilitation Medicine</option>
+					<option>Surgery</option>
+				</select>
+			</div>
+
+
+			<div class="form-group" id="GPsection">
+				<label>Hemodialysis experience</label>
+				<div class="form-check">
+					<input type="radio" name="hd_yes" value="yes">
+					<label>Yes</label>
+				</div>
+				<div class="form-check">
+					<input type="radio" name="hd_no" value="no">
+					<label>No</label>
+				</div>
+				<label>Occupational Health qualification</label>
+				<div class="form-check">
+					<input type="radio" name="oh_yes" value="yes">
+					<label>Yes</label>
+				</div>
+				<div class="form-check">
+					<input type="radio" name="oh_no" value="no">
+					<label>No</label>
+				</div>
+				<button type="submit" class="btn btn-primary mb-2" onclick="part3()">Register</button>
+			</div>
+
+
+			<div class="form-group" id="specialistsection">
+				<label>Diplomate status</label>
+				<div class="form-check">
+					<input type="radio" name="diplomate_yes" value="yes">
+					<label>Yes</label>
+				</div>
+				<div class="form-check">
+					<input type="radio" name="diplomate_no" value="no">
+					<label>No</label>
+				</div>
+				<label>Consultant status</label>
+				<div class="form-check">
+					<input type="radio" name="consultant_yes" value="yes">
+					<label>Yes</label>
+				</div>
+				<div class="form-check">
+					<input type="radio" name="consultant_no" value="no">
+					<label>No</label>
+				</div>
+				<button type="submit" class="btn btn-primary mb-2" onclick="part4()">Register</button>
+			</div>
+	</form>	
+	</div>
+</body>
+</html>

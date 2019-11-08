@@ -1,0 +1,14 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Profile & Interests </title>
+</head>
+<body>
+	<form action={"% url 'hi_again' %}" method="POST">
+		{% for interest_field in form.get_interest_fields %}
+			{{ interest_field }}
+		{% endfor %}
+	</form>
+</body>
+</html>

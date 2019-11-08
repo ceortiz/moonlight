@@ -1,0 +1,11 @@
+#Form2 {
+	margin: 20px;
+	border: 1px solid black;
+	padding: 20px;
+	background-color: orange;
+	width: 70%;
+}
+
+.tab {
+	display: none;
+}
