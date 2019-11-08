@@ -173,8 +173,8 @@ class Date(models.Model):
 	OR = 'OR'
 	AND = 'AND'
 	OPTIONS = (
-		(OR, 'OR'),
-        (AND, 'AND')
+	(OR, 'OR'),
+	(AND, 'AND')
 	)
 	post = models.ForeignKey(Post, on_delete=models.CASCADE)
 	start_date = models.DateField() # may be use durationfield instead

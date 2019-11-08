@@ -123,7 +123,7 @@ def post(request, method="POST"):
 			# get NUMBER OF POSTS
 			number_of_posts = post_data.get("number_of_posts")
 			# iterate thru number of posts
-			for i in number_of_posts + 1, i++ {
+			for i in number_of_posts + 1, i++ 
 			#access post details by indexing
 				post_details = Date.save(commit=False)
 				post_details.post = new_post
@@ -214,7 +214,7 @@ def post(request, method="POST"):
 							post_details.sex_of_professional = "Female"
 							post_details.is_taken = False
 							post_details.save()
-			}
+			
 
 		# else for same professionals 
 		else if type_of_post == "same_professionals":
