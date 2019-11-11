@@ -123,7 +123,8 @@ def post(request, method="POST"):
 			# get NUMBER OF POSTS
 			number_of_posts = post_data.get("number_of_posts")
 			# iterate thru number of posts
-			for i in number_of_posts + 1, i++ 
+
+			for i in number_of_posts + 1: 
 			#access post details by indexing
 				post_details = Date.save(commit=False)
 				post_details.post = new_post
@@ -143,17 +144,17 @@ def post(request, method="POST"):
 				# get the no. of females needed
 				female = post_data.get("female")[i]
 
-				if total_posts != 0;
+				if total_posts != 0:
 				# if AND
-					if determinant == "AND";
+					if determinant == "AND":
 						
-						if male != 0;
+						if male != 0:
 
 							post_details.sex_of_professional = "Male"
 							post_details.is_taken = False
 							post_details.save()
 
-							for i = 1; i < male; i++
+							for i in male + 1:
 								#create post
 								post_details.pk = None
 								post_details.sex_of_professional = "Male"
@@ -162,20 +163,20 @@ def post(request, method="POST"):
 
 								#redirect to the posts page
 							# use for loop to iterate thru female
-							for i = 1; i < female; i++
+							for i in female + 1:
 								#create post
 								post_details.pk = None
 								post_details.sex_of_professional = "Female"
 								post_details.is_taken = False
 								post_details.save()
 
-						else if female != 0;
+						elif female != 0:
 
 							post_details.sex_of_professional = "Female"
 							post_details.is_taken = False
 							post_details.save()
 
-							for i = 1; i < female; i++
+							for i in female + 1:
 								#create post
 								post_details.pk = None
 								post_details.sex_of_professional = "Female"
@@ -183,13 +184,13 @@ def post(request, method="POST"):
 								post_details.save()
 
 						#if 0 male and 0 female
-						else
+						else:
 							#return error message
 							return render(request, 'book/post2.html')
 
 
 					# else if OR
-					else if determinant == "OR";
+					elif determinant == "OR":
 					# CREATE AN INITIAL POST FIRST TO BE COPIED LATER
 
 
@@ -201,10 +202,10 @@ def post(request, method="POST"):
 						post_details.sex_of_professional = "Female"
 						post_details.is_taken = False
 						post_details.save()
-					
+
 					# use for loop to iterate thru male ONLY
-						for i = 1; i < total_posts; i++
-							#create post
+						for i in total_posts:
+						#create post
 							post_details.pk = None
 							post_details.sex_of_professional = "Male"
 							post_details.is_taken = False
@@ -214,10 +215,9 @@ def post(request, method="POST"):
 							post_details.sex_of_professional = "Female"
 							post_details.is_taken = False
 							post_details.save()
-			
 
 		# else for same professionals 
-		else if type_of_post == "same_professionals":
+		elif type_of_post == "same_professionals":
 			number_of_posts = post_data.get("number_of_posts")
 
 			determinant = post_data.get("determinant")
