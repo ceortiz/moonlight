@@ -9,11 +9,11 @@ from django.http import HttpResponseRedirect
 from formtools.wizard.views import SessionWizardView
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from book.forms import UserForm, ProfessionalsForm, RecruitersForm, GPForm, HDForm,OHForm, SpecialtiesForm, SpecialistForm, MyForm, BookFormset
+from book.forms import UserForm, ProfessionalsForm, RecruitersForm, GPForm, HDForm,OHForm, SpecialtiesForm, SpecialistForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import generic
 from django.views.generic import View
-from book.models import User, Professionals, Recruiters, Specialties, Specialists, Post, Book, Date
+from book.models import User, Professionals, Recruiters, Specialties, Specialists, Post, Date
 
 def index(request):
 	return render(request, 'book/form.html')
@@ -226,7 +226,7 @@ def post(request, method="POST"):
 			# get the no. of females needed
 			female = post_data.get("female")
 			# iterate thru number of posts
-			for i = 1; i < number_of_posts + 1; i++:
+			for i in number_of_posts + 1:
 				#access post details by indexing
 			# iterate thru number of posts
 				#access post details by indexing
@@ -248,43 +248,57 @@ def post(request, method="POST"):
 					female = post_data.get("female")
 
 					# if AND
-						if determinant == "AND";
-							
-							if male != 0;
+					if determinant == "AND":
+						
+						if male != 0:
 
+							post_details.sex_of_professional = "Male"
+							post_details.is_taken = False
+							post_details.save()
+
+							for i in male:
+								#create post
+								post_details.pk = None
 								post_details.sex_of_professional = "Male"
 								post_details.is_taken = False
 								post_details.save()
 
-								for i = 1; i < male; i++
-									#create post
-									post_details.pk = None
-									post_details.sex_of_professional = "Male"
-									post_details.is_taken = False
-									post_details.save()
+						elif female != 0:
 
-							else if female != 0;
+							post_details.sex_of_professional = "Female"
+							post_details.is_taken = False
+							post_details.save()
 
+							for i in female:
+								#create post
+								post_details.pk = None
 								post_details.sex_of_professional = "Female"
 								post_details.is_taken = False
 								post_details.save()
 
-								for i = 1; i < female; i++
-									#create post
-									post_details.pk = None
-									post_details.sex_of_professional = "Female"
-									post_details.is_taken = False
-									post_details.save()
+						#if 0 male and 0 female
+						else:
+							return render(request, 'book/post2.html')
 
-							#if 0 male and 0 female
-							else
+							#return error message
 
-								#return error message
+					elif determinant == "OR":
+					# CREATE AN INITIAL POST FIRST TO BE COPIED LATER
 
-						else if determinant == "OR";
-						# CREATE AN INITIAL POST FIRST TO BE COPIED LATER
+						if male != 0:
+							post_details.sex_of_professional = "Male"
+							post_details.is_taken = False
+							post_details.save()
 
-							if male != 0;
+							post_details.pk = None
+							post_details.sex_of_professional = "Female"
+							post_details.is_taken = False
+							post_details.save()
+					
+					# use for loop to iterate thru male ONLY
+							for i in male:
+								#create post
+								post_details.pk = None
 								post_details.sex_of_professional = "Male"
 								post_details.is_taken = False
 								post_details.save()
@@ -293,30 +307,13 @@ def post(request, method="POST"):
 								post_details.sex_of_professional = "Female"
 								post_details.is_taken = False
 								post_details.save()
-						
-						# use for loop to iterate thru male ONLY
-								for i = 1; i < male; i++
-									#create post
-									post_details.pk = None
-									post_details.sex_of_professional = "Male"
-									post_details.is_taken = False
-									post_details.save()
-
-									post_details.pk = None
-									post_details.sex_of_professional = "Female"
-									post_details.is_taken = False
-									post_details.save()
 
 	
-	else 
-		return
-
-	# if request.method is post, accept each the entries
-	if request.method == "POST":
-		what = request.POST.get['what']
+	else: 
+		return render(request, 'book/post2.html')
 
 
-		def login_view(request):
+def login_view(request):
     if(request.POST):
         login_data = request.POST.dict()
         username = login_data.get("username")
@@ -328,46 +325,52 @@ def post(request, method="POST"):
         return render(request, "base.html")
 	
 
-def load_post(request, method="POST"):
-	# get the word from where textbox on keydown
+def load_posts(request, method="POST"):
+# get the word from where textbox on keydown
 	if request.method == "POST":
 		if request.POST.get('request') == 1:
-	        	term = request.POST.get('search')
-	        posts = Post.objects.filter(string__contains=term)
-	        results = []
-	        for r in posts:
-	        	row_result = []
-	        	row_result["value"] = r.post_id
-	        	row_result["label"] = r.where
-	        	results.append(row_result)
+			term = request.POST.get('search')
+			posts = Post.objects.filter(string__contains=term)
+			
+			results = []
+			
+			for r in posts:
+				row_result = []
+				row_result["value"] = r.post_id
+				row_result["label"] = r.where
+				results.append(row_result)
 
-	        data = json.dumps(results)
-	        exit()
+			data = json.dumps(results)
+			exit()
 
-		elif (request.POST.get('request') == 2):
+		elif request.POST.get('request') == 2:
 			userid = request.POST.get('userid')
 			post_details = Post.objects.filter(id=userid)
 			user_array = []
 
 			for q in post_details:
-			 	user_id = q['post_id']
-			 	profession = q['profession']
-			 	qualification = q['qualification']
-				pay_given = q['pay_given']
-				incentives = q['incentives']
-				incentives_given = q['incentives_given']
-				requirements = q['requirements']
-				expected_number_patients = q['expected_number_patients']
-				toxicity = q['toxicity']
-				person_to_look_for = q['person_to_look_for']
-				
-				user_array[] = ["user_id": user_id, "profession": profession, "qualification": qualification, "pay_given": pay_given, "incentives": incentives, "incentives_given": incentives_given, "requirements": requirements, "expected_number_patients": expected_number_patients, "toxicity": toxicity, "person_to_look_for": person_to_look_for]
+				result = []
+				#user_id = q['post_id']
+				result["user_id", q['post_id']]
+				result["profession", q['profession']]
+
+				result["qualification", q['qualification']]
+				result["pay_given", q['pay_given']]
+				result["incentives", q['incentives']]
+				result["incentives_given", q['incentives_given']]
+				result["requirements", q['requirements']]
+				result["expected_number_patients", q['expected_number_patients']]
+				result["toxicity", q['toxicity']]
+				result["person_to_look_for", q['person_to_look_for']]
+
+				#user_array[] = ["user_id": user_id, "profession": profession, "qualification": qualification, "pay_given": pay_given, "incentives": incentives, "incentives_given": incentives_given, "requirements": requirements, "expected_number_patients": expected_number_patients, "toxicity": toxicity, "person_to_look_for": person_to_look_for]
+				user_array.append(result)
 
 			data = json.dumps(user_array)
-	        exit()
+			exit()
 
 	else:
-        data = 'fail'
-   		mimetype = 'application/json'
-   
-    return HttpResponse(data, mimetype)
+		data = 'fail'
+		mimetype = 'application/json'
+
+	return HttpResponse(data, mimetype)
