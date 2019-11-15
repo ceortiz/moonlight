@@ -89,11 +89,14 @@ class UserRegistration(View):
 						specialist.license_number = professional
 						specialist.specialty = specialty
 						specialist.save()
+
+				return render(request, 'book/success.html')
 				
 			if recruiter_valid:
 				recruiter = recruitersform.save(commit=False)
 				recruiter.recruiter_user_id = user
 				recruiter.save()
+				return render(request, 'book/success.html')
 
 		return render(request, 'book/form2.html', {'userform': userform, 'professionalsform': professionalsform, 'recruitersform': recruitersform, 'hdform': hdform, 'ohform': ohform,'specialtiesform': specialtiesform, 'specialistform': specialistform})
 
