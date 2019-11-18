@@ -9,11 +9,12 @@ from django.http import HttpResponseRedirect
 from formtools.wizard.views import SessionWizardView
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from book.forms import UserForm, ProfessionalsForm, RecruitersForm, GPForm, HDForm,OHForm, SpecialtiesForm, SpecialistForm
+from book.forms import UserForm, ProfessionalsForm, RecruitersForm, GPForm, HDForm,OHForm, SpecialtiesForm, SpecialistForm, PostForm, DateForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import generic
 from django.views.generic import View
 from book.models import User, Professionals, Recruiters, Specialties, Specialists, Post, Date
+from django.forms import formset_factory
 
 def index(request):
 	return render(request, 'book/form.html')
@@ -103,10 +104,11 @@ class UserRegistration(View):
 def post(request, method="POST"):
 	# LATEST ALGORITHM
 	if request.method == "POST":
-
-		post_data = request.POST.dict()
 		# post details
-		new_post = Post.save(commit=False)
+		#create post instance
+		post_data = Post(request.POST)
+
+		new_post = post_data.save(commit=False)
 		new_post.what = post_data.get("what")
 		new_post.where = post_data.get("where")
 		new_post.profession = post_data.get("where")
@@ -129,7 +131,7 @@ def post(request, method="POST"):
 
 			for i in number_of_posts + 1: 
 			#access post details by indexing
-				post_details = Date.save(commit=False)
+				post_details = Date()
 				post_details.post = new_post
 				post_details.start_date = post_data.get("start_date")[i]
 				post_details.end_date = post_data.get("end_date")[i]
@@ -314,6 +316,19 @@ def post(request, method="POST"):
 	
 	else: 
 		return render(request, 'book/post2.html')
+
+def create_post(request, method="POST"):
+	DateFormSet = formset_factory(DateForm)
+	if request.method == "GET":
+		post_form = PostForm(request.GET or None)
+		formset = DateFormSet(request.GET or None)
+	elif request.method == "POST":
+		post_form = PostForm(request.POST)
+		formset = DateFormSet(request.POST)
+		if formset.is_valid():
+			for form in formset:
+				Date.save()
+	return render(request, 'book/create_post.html', {'formset': formset, 'post_form': post_form,})
 
 
 def login_view(request):
