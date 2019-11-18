@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^registration/$', views.UserRegistration.as_view(), name='registration'),
    	url(r'^post/$', views.post, name='post'),
-   	url(r'^ajax/load-posts/$', views.load_posts, name='ajax_load_posts'),
+   	url(r'^ajax_load-posts/$', views.load_posts, name='ajax_load_posts'),
+   	url(r'^create_post/$', views.create_post, name='create_post'),
 ]
 
